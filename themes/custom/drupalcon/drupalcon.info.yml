@@ -1,0 +1,14 @@
+name: Drupalcon
+type: theme
+description: 'theme for Drupalcon 2015 Barcelona'
+package: Custom
+core: 8.x
+libraries: 
+ - drupalcon/global-styling
+ - drupalcon/foundation
+regions: 
+  top: Top
+  header: Header
+  content: Content
+  sidebar_first: 'Sidebar first'
+  footer: Footer

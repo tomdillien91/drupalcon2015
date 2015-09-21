@@ -1,0 +1,15 @@
+global-styling:
+  css:
+    theme:
+      css/main.css: {}
+  js:
+    js/main.js: {}
+
+foundation: 
+  css:
+    theme:
+      css/foundation.css: {}
+  js:
+    js/foundation.min.js: {}
+  dependencies:
+    - core/jquery
