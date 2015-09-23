@@ -21,7 +21,7 @@ class ReusableFormController extends ControllerBase
      */
     public function ff() {
         $config = \Drupal::config('reusableform.settings');
-        var_dump($config,$config->get('mytext'));
+        //var_dump($config,$config->get('mytext'));
 
         return array(
             '#markup' => 'Hello DrupalCon World!',
