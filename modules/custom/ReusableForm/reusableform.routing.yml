@@ -1,0 +1,7 @@
+reusableform.fform:
+  path: '/myform'
+  defaults:
+    _controller: '\Drupal\reusableform\Controller\ReusableFormController::ff'
+    _title: 'First Form'
+  requirements:
+    _permission: 'access content'

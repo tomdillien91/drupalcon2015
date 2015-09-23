@@ -1,0 +1,5 @@
+reusableform.fform:
+  title: Reusable Form Link
+  description: 'This is a reusable form link'
+  parent: system.admin_structure
+  route_name: reusableform.fform

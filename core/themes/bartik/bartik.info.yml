@@ -3,8 +3,8 @@ type: theme
 base theme: classy
 description: 'A flexible, recolorable theme with many regions and a responsive, mobile-first layout.'
 package: Core
-# version: VERSION
-# core: 8.x
+version: VERSION
+core: 8.x
 stylesheets-remove:
   - '@classy/css/layout.css'
 libraries:
@@ -34,9 +34,3 @@ regions:
   footer_fourth: 'Footer fourth'
   footer_fifth: 'Footer fifth'
 
-
-# Information added by Drupal.org packaging script on 2015-09-04
-version: '8.0.0-beta15'
-core: '8.x'
-project: 'drupal'
-datestamp: 1441357641

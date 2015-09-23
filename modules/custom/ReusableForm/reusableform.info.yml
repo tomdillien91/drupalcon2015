@@ -1,0 +1,7 @@
+name: DrupalCon form module
+description: This is a module to test forms in the new Drupal module API.<br/> Set a form in a block so it is reusable.
+type: module
+package: testmodules Mathieu
+core: 8.x
+version: beta 0.1
+
