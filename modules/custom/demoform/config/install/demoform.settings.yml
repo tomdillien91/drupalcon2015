@@ -1,2 +1,2 @@
-demo:
-  email_address: demo@demo.com
+demoform:
+  email_address: 'demo@demo.com'
