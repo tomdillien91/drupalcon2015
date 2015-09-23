@@ -1,0 +1,15 @@
+demoform.demoform:
+  path: '/demoform'
+  defaults:
+    _controller: '\Drupal\demoform\Controller\DemoformController::demo'
+    _title: 'DemoForm'
+  requirements:
+    _permission: 'access content'
+
+demoform.form:
+  path: '/demoform/form'
+  defaults:
+    _form: '\Drupal\demoform\Form\DemoformForm'
+    _title: 'Demoform Form'
+  requirements:
+    _permission: 'access content'

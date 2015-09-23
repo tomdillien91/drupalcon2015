@@ -1,0 +1,7 @@
+name: Drupal 8 Demoform module
+description: 'Demoform module for Drupal 8 alpha15'
+type: module
+core: 8.x
+package: testmodules Mathieu
+#not required
+version: 1.0

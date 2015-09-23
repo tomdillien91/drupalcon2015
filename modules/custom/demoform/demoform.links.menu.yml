@@ -1,0 +1,5 @@
+demoform.demoform:
+  title: Demoform Link
+  description: 'This is a demoform link'
+  parent: system.admin_structure
+  route_name: demoform.demoform
