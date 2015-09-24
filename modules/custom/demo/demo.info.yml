@@ -1,7 +1,4 @@
 name: Drupal 8 Demo module
-description: 'Demo module for Drupal 8 alpha15'
+description: 'Demo module for Drupal 8 alpha11'
 type: module
 core: 8.x
-package: testmodules Mathieu
-#not required
-version: 1.0

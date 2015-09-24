@@ -1,0 +1,5 @@
+demo2.demo2:
+  title: Demo2 Link
+  description: 'This is a demo link'
+  parent: system.admin_structure #where the link comes structure/ourLink
+  route_name: demo2.demo2

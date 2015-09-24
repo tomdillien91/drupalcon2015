@@ -7,6 +7,7 @@ namespace Drupal\demoform\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
 
 class DemoformForm extends ConfigFormBase
 {
@@ -30,6 +31,7 @@ class DemoformForm extends ConfigFormBase
         $form['firstname'] = array(
             '#type' => 'textfield',
             '#title' => $this->t('Name'),
+            '#required' => true,
             '#attributes' => array(
                 'class' => array('demo_form formfield firstname'),
             ),
@@ -37,6 +39,7 @@ class DemoformForm extends ConfigFormBase
         $form['lastname'] = array(
             '#type' => 'textfield',
             '#title' => $this->t('Last Name'),
+            '#required' => true,
             '#attributes' => array(
                 'class' => array('demo_form formfield lastname'),
             ),
@@ -44,6 +47,7 @@ class DemoformForm extends ConfigFormBase
         $form['email'] = array(
             '#type' => 'email',
             '#title' => $this->t('E-mail : '),
+            '#required' => true,
             '#default_value' => $config->get('demoform.email_address'),
             '#attributes' => array(
                 'class' => array('demo_form formfield email'),
@@ -52,6 +56,7 @@ class DemoformForm extends ConfigFormBase
         $form['phone_number'] = array(
             '#type' => 'tel',
             '#title' => $this->t('Your phone number'),
+            '#required' => true,
             '#attributes' => array(
                 'class' => array('demo_form formfield phone_number'),
             ),
@@ -59,6 +64,7 @@ class DemoformForm extends ConfigFormBase
         $form['description'] = array(
             '#type' => 'textarea',
             '#title' => $this->t('Description'),
+            '#required' => true,
             '#attributes' => array(
                 'class' => array('demo_form formfield phone_number'),
             ),
@@ -72,33 +78,32 @@ class DemoformForm extends ConfigFormBase
      */
     public function validateForm(array &$form, FormStateInterface $form_state) {
 
-        //TODO make a function of this
-        $createdFieldNames = array();
-        $createdFieldNames = array_map (
-            function($form) {
-                if (array_key_exists('#title', $form) && !empty($form['#name'])) {
-                    return $form['#name'];
-               }
-            }
-            ,$form
-        );
-        $createdFieldNames = array_filter($createdFieldNames);
+        $createdFieldNames = $this->getCustomFieldsArray($form);
 
-        //TODO validate fields here
         if (array_intersect_key ($createdFieldNames, $form_state->getValues())) {
             foreach ($createdFieldNames as $fieldName) {
-                switch ($fieldName) {
+                $formValue =  $form_state->getValue($fieldName);
+                switch (trim($fieldName)) {
                     case 'firstname' :
-                        break;
                     case 'lastname' :
+                    case 'description' :
+                        if (!filter_var($formValue, FILTER_VALIDATE_REGEXP,array( "options"=> array("regexp"=>'/[a-zA-Z\s]+/')))) {
+                            $form_state->setErrorByName($fieldName, $this->t('This is not a valid last name.'));
+                        }
+                        break;
+                    case 'tel' :
+                        if (!filter_var($formValue, FILTER_VALIDATE_INT)) {
+                            $form_state->setErrorByName($fieldName, $this->t('This is not a valid tel.'));
+                        }
+                        break;
+                    case 'email' :
+                        if (!filter_var($formValue, FILTER_VALIDATE_EMAIL)) {
+                            $form_state->setErrorByName($fieldName, $this->t('This is not a valid email address.'));
+                        }
                         break;
                 }
-            }
+            };
         }
-//die();
-//        if (strpos($form_state->getValue('email'), '.com') === FALSE ) {
-//            $form_state->setErrorByName('email', $this->t('This is not a valid email address.'));
-//        }
 
     }
 
@@ -107,10 +112,12 @@ class DemoformForm extends ConfigFormBase
      */
     public function submitForm(array &$form, FormStateInterface $form_state) {
 
-        $config = $this->config('demoform.settings');
+        //$this->store->set('email', $form_state->getValue('email'));
+       // $this->store->set('name', $form_state->getValue('name'));
+        // Save the data
+        //parent::saveData();
 
-        $config->set('demoform.email_address', $form_state->getValue('email'));
-        $config->save();
+        //$form_state->setRedirect('demo.multistep_two');
 
         return parent::submitForm($form, $form_state);
     }
@@ -118,8 +125,27 @@ class DemoformForm extends ConfigFormBase
      * {@inheritdoc}
      */
     protected function getEditableConfigNames() {
-        return [
-            'demoform.settings',
-        ];
+//        return [
+//            'demoform.settings',
+//        ];
+    }
+
+    /**
+     * @param array $form
+     * @return array $createdFieldNames
+     */
+    protected function getCustomFieldsArray($form) {
+
+        $createdFieldNames = array();
+        $createdFieldNames = array_map (
+            function($form) {
+                if (array_key_exists('#title', $form) && !empty($form['#name'])) {
+                    return $form['#name'];
+                }
+            }
+            ,$form
+        );
+
+        return  array_filter($createdFieldNames);
     }
 }

@@ -1,0 +1,10 @@
+demoform.settings:
+  type: mapping
+  label: 'Demoform settings'
+  mapping:
+    demoform:
+      type: mapping
+      mapping:
+        email_address:
+          type: text
+          label: 'A default email address'
